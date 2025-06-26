@@ -17,8 +17,8 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <MainProvider>
-        <section className="min-w-screen xl:h-screen hsm:h-full relative min-h-screen overflow-hidden  border border-blue-700">
-          <div className="container max-auto px-4 relative z-10 border border-blue-700">
+        <section className="min-w-screen xl:h-screen hsm:h-full relative min-h-screen overflow-hidden">
+          <div className="container max-auto px-4 relative z-10">
             <Story />
           </div>
         </section>
