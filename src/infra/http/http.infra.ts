@@ -6,6 +6,7 @@ export class HttpInfra implements HttpGateway {
   private readonly baseUrl: string;
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
+    this.get = this.get.bind(this);
   }
 
   private buildUrl(
