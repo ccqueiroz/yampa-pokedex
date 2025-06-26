@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+// import { useTranslation } from "react-i18next";
+import { useI18n } from "@/app/hooks/usei18n.hook";
 
 const styleActive =
   "ring-2 ring-white/40 hover:ring-white shadow-[0_0_10px_hsl(var(--primary))] hover:shadow-[inset_0_0_12px_rgba(255,255,255,0.8)] transition";
@@ -9,7 +11,18 @@ const styleOutline =
   "ring-1 ring-white/80 hover:ring-white shadow-[0px_0px_10px_hsl(var(--primary)/0.6)] hover:shadow-[inset_0_0_12px_rgba(255,255,255,0.8)] transition";
 
 export const ButtonTransalation = () => {
-  const [active, setActive] = useState(false);
+  const { choosenLanguage, changeLanguage } = useI18n();
+  const [active, setActive] = useState(choosenLanguage === 'pt');
+
+  const changeLanguagePt = () => {
+    changeLanguage("pt");
+    setActive(true);
+  };
+
+  const changeLanguageEn = () => {
+    changeLanguage("en");
+    setActive(false);
+  };
 
   return (
     <div>
@@ -19,7 +32,7 @@ export const ButtonTransalation = () => {
           active ? styleActive : styleOutline
         )}
         variant={active ? "secondary" : "outline"}
-        onClick={() => setActive(true)}
+        onClick={changeLanguagePt}
       >
         <span>PT</span>
       </Button>
@@ -29,7 +42,7 @@ export const ButtonTransalation = () => {
           !active ? styleActive : styleOutline
         )}
         variant={!active ? "secondary" : "outline"}
-        onClick={() => setActive(false)}
+        onClick={changeLanguageEn}
       >
         <span>EN</span>
       </Button>
