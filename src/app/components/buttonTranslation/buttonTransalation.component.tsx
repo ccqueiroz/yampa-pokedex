@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-// import { useTranslation } from "react-i18next";
 import { useI18n } from "@/app/hooks/usei18n.hook";
 
 const styleActive =
@@ -28,7 +27,7 @@ export const ButtonTransalation = () => {
     <div>
       <Button
         className={cn(
-          "h-12 rounded-s-lg rounded-e-none",
+          "h-10 rounded-s-lg rounded-e-none",
           active ? styleActive : styleOutline
         )}
         variant={active ? "secondary" : "outline"}
@@ -38,7 +37,7 @@ export const ButtonTransalation = () => {
       </Button>
       <Button
         className={cn(
-          "h-12 rounded-s-none rounded-e-lg ",
+          "h-10 rounded-s-none rounded-e-lg ",
           !active ? styleActive : styleOutline
         )}
         variant={!active ? "secondary" : "outline"}
