@@ -15,7 +15,7 @@ export const InputSearch = () => {
   return (
     <div
       role="search"
-      className="flex items-center border rounded-md px-3 bg-background border-border text-secondary"
+      className="w-full max-w-96 md:max-w-80 flex items-center border rounded-md px-3 bg-background border-border text-secondary"
     >
       <Search className="mr-2 h-5 w-5 text-secondary" aria-hidden="true" />
       <Input
