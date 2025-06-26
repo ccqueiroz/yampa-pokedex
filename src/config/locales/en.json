@@ -1,5 +1,10 @@
 {
   "inputs": {
     "placeholder": "Search Pokémon"
+  },
+  "accessibility": {
+    "select_language": "Select language",
+    "select_language_pt": "Select the portuguese language",
+    "select_language_en": "Select English language"
   }
 }

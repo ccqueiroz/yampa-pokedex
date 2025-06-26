@@ -1,5 +1,10 @@
 {
   "inputs": {
     "placeholder": "Buscar por nome"
+  },
+  "accessibility": {
+    "select_language": "Selecione o idioma",
+    "select_language_pt": "Selecionar o idioma português",
+    "select_language_en": "Selecione o idioma inglês"
   }
 }
