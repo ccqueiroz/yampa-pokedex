@@ -10,7 +10,7 @@ export const Header = () => {
       grid
       grid-cols-2
       grid-rows-2
-      gap-2
+      gap-4
       p-4
       md:grid-cols-3
       md:grid-rows-1
@@ -22,7 +22,7 @@ export const Header = () => {
       <div className="col-span-1 row-span-1 flex justify-end items-center md:col-start-3">
         <ButtonTransalation />
       </div>
-      <div className="col-span-2 row-span-1 md:col-span-1 md:col-start-2 md:row-start-1 flex justify-center items-center">
+      <div className="col-span-2 row-span-1 md:col-span-1 md:col-start-2 md:row-start-1 flex justify-center items-center w-full">
         <InputSearch />
       </div>
     </header>
