@@ -1,3 +1,5 @@
 {
-  "welcome": "Bem vindo"
+  "inputs": {
+    "placeholder": "Buscar por nome"
+  }
 }

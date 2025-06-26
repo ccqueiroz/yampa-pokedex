@@ -1,3 +1,5 @@
 {
-  "welcome": "Welcome"
+  "inputs": {
+    "placeholder": "Search Pokémon"
+  }
 }
