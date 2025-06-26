@@ -11,13 +11,17 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    layout: "centered",
+    layout: "fullscreen",
   },
   tags: ["autodocs"],
   decorators: [
     (Story) => (
       <MainProvider>
-        <Story />
+        <section className="min-w-screen xl:h-screen hsm:h-full relative min-h-screen overflow-hidden  border border-blue-700">
+          <div className="container max-auto px-4 relative z-10 border border-blue-700">
+            <Story />
+          </div>
+        </section>
       </MainProvider>
     ),
   ],
