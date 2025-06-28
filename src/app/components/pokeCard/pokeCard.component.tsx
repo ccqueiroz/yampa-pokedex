@@ -10,12 +10,7 @@ import { TYPE_COLORS } from "@/infra/constants/TYPE_COLORS.constantes";
 
 type PokeCardProps = Pokemon & { bg: string };
 export type TypesPokemon = Array<{ color: string; type: string }>;
-export const PokeCard = ({
-  id,
-  name,
-  url,
-}: // bg = `bg-gradient-to-br from-[#6F35FC]/85 to-[#6390F0]/65 `,
-PokeCardProps) => {
+export const PokeCard = ({ id, name, url }: PokeCardProps) => {
   const [loading, setLoading] = useState(true);
   const [types, setTypes] = useState<TypesPokemon>([]);
   const { translation } = useI18n();
@@ -37,7 +32,6 @@ PokeCardProps) => {
         });
 
         setTypes(typesArr);
-        console.log("responseData", responseData);
         if (active) {
           // setDetails(data);
           setLoading(false);
