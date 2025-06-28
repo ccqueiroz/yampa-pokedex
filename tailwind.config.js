@@ -81,10 +81,17 @@ export default {
             height: "0",
           },
         },
+        shine: {
+          "0%": { transform: "translateX(-100%) skewX(-20deg)", opacity: "0" },
+          "50%": { opacity: "1" },
+          "100%": { transform: "translateX(100%) skewX(-20deg)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "shine": "shine 0.9s ease-in-out forwards",
+        "shine-delay": "shine 0.9s ease-in-out forwards 0.15s",
       },
     },
   },
