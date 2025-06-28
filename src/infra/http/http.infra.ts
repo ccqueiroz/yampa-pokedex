@@ -67,7 +67,7 @@ export class HttpInfra implements HttpGateway {
       throw new HttpError(response.status, responseData?.message);
     }
 
-    return responseData?.data as T;
+    return responseData as T;
   }
 
   get<T>(path: string, options?: Omit<HttpOptions, "body">) {
