@@ -18,17 +18,38 @@ export class PokemonEntitie {
     this.idProps = id;
   }
 
-  public static create(props: PokemonEntitieProps) {
+  private static getId(url: string) {
     let pokeId: number | null = null;
-    const findId = props.url.match(PokemonEntitie.regexToGetId);
+    const findId = url.match(PokemonEntitie.regexToGetId);
 
     if (!findId || !findId[1]) {
-      throw new Error(`Invalid Pokémon URL: ${props.url}`);
+      throw new Error(`Invalid Pokémon URL: ${url}`);
     }
 
     pokeId = parseInt(findId[1], 10);
 
-    return new PokemonEntitie({ ...props, id: pokeId.toString() });
+    return pokeId;
+  }
+
+  private static capitalizeFirstLetterByName(name: string) {
+    let pokeName: string | null;
+
+    if (typeof name !== "string" || name.length === 0) pokeName = "";
+
+    pokeName = `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
+
+    return pokeName;
+  }
+
+  public static create(props: PokemonEntitieProps) {
+    const pokeId = PokemonEntitie.getId(props.url);
+    const pokeName = PokemonEntitie.capitalizeFirstLetterByName(props.name);
+
+    return new PokemonEntitie({
+      ...props,
+      name: pokeName,
+      id: pokeId.toString(),
+    });
   }
 
   public get id() {
