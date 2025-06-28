@@ -6,9 +6,14 @@ export type Pokemon = {
 
 export type ListPokemon = Array<Pokemon>;
 
+export type QueriesParamsToListPokemon = {
+  offset: number | null;
+  limit: number | null;
+};
+
 export type ResponseListPokemon = {
   count: number;
-  next: string | null;
-  previous: string | null;
+  next: QueriesParamsToListPokemon | null;
+  previous: QueriesParamsToListPokemon | null;
   results: ListPokemon;
 };
