@@ -2,9 +2,36 @@
   "inputs": {
     "placeholder": "Search Pokémon"
   },
+  "actions": {
+    "view_details": "View Details",
+    "expand": "Expand",
+    "rectract": "Rectract"
+  },
   "accessibility": {
     "select_language": "Select language",
     "select_language_pt": "Select the portuguese language",
-    "select_language_en": "Select English language"
+    "select_language_en": "Select English language",
+    "whos_that_pokemon": "Whos that Pokémon?",
+    "pokemon_type_of": "Pokémon type of: "
+  },
+  "pokemon_type": {
+    "normal": "Normal",
+    "fire": "Fire",
+    "water": "Water",
+    "electric": "Electric",
+    "grass": "Grass",
+    "ice": "Ice",
+    "fighting": "Fighting",
+    "poison": "Poison",
+    "ground": "Ground",
+    "flying": "Flying",
+    "psychic": "Psychic",
+    "bug": "Bug",
+    "rock": "Rock",
+    "ghost": "Ghost",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "steel": "Steel",
+    "fairy": "Fairy"
   }
 }
