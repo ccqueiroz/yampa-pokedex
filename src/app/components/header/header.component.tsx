@@ -17,7 +17,7 @@ export const Header = () => {
     "
     >
       <div className="col-span-1 row-span-1 flex items-center justify-start">
-        <h1 className="text-xl text-primary font-bold">Pokédex</h1>
+        <h1 className="text-3xl text-primary font-bold">Pokédex</h1>
       </div>
       <div className="col-span-1 row-span-1 flex justify-end items-center md:col-start-3">
         <ButtonTransalation />
