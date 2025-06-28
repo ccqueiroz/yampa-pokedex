@@ -73,6 +73,10 @@ export const PokeList = () => {
     };
   }, [isFetching, hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    rowVirtualizer.measure();
+  }, [columns, isMobile, rowVirtualizer]);
+
   return (
     <div
       ref={parentRef}
@@ -90,7 +94,7 @@ export const PokeList = () => {
             row.index * columns,
             Math.min(items.length, (row.index + 1) * columns)
           );
-          console.log("rowItems", rowItems, "columns", columns);
+
           if (rowItems.length === 0) return null;
 
           const isLastRow = i === all.length - 1;
