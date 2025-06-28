@@ -23,7 +23,7 @@ describe("PokemonEntitie", () => {
     const entitie = PokemonEntitie.create(validMocks[0]);
 
     expect(entitie).toBeInstanceOf(PokemonEntitie);
-    expect(entitie.name).toBe("bulbasaur");
+    expect(entitie.name).toBe("Bulbasaur");
     expect(entitie.url).toBe("https://pokeapi.co/api/v2/pokemon/1/");
     expect(entitie.id).toBe("1");
   });
