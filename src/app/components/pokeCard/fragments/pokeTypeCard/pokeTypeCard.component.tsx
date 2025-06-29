@@ -1,28 +1,10 @@
 import { Button } from "@/app/components/ui/button";
 import { useI18n } from "@/app/hooks/usei18n.hook";
-// import { TYPE_COLORS } from "@/infra/constants/TYPE_COLORS.constantes";
-import type { TypesPokemon } from "../../pokeCard.component";
+import { usePokeCard } from "../../context/pokeCardProvider.component";
 
-export const PokeTypeCard = ({
-  id,
-  types,
-}: {
-  id: string;
-  types: TypesPokemon;
-}) => {
+export const PokeTypeCard = () => {
   const { translation } = useI18n();
-  // const types = [
-  //   {
-  //     name: translation(`pokemon_type.${'dragon'}`),
-  //     color: TYPE_COLORS["dragon"],
-  //     type: "grass",
-  //   },
-  //   {
-  //     name: translation(`pokemon_type.${'fire'}`),
-  //     color: TYPE_COLORS["fire"],
-  //     type: "poison",
-  //   },
-  // ];
+  const { types, id } = usePokeCard();
 
   if (!types.length) return <></>;
 
