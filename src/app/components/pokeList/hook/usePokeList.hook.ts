@@ -15,8 +15,8 @@ export const usePokemonList = () => {
     useInfiniteQuery({
       queryKey: ["pokemons"],
       initialPageParam: 0,
-      queryFn: async ({ pageParam = 0 }) =>
-        getPokeListUseCase.execute({ limit: 12, offset: pageParam }),
+      queryFn: async ({ pageParam = 0, signal }) =>
+        getPokeListUseCase.execute({ limit: 12, offset: pageParam, signal }),
       getNextPageParam: (lastPage) => lastPage?.next?.offset ?? undefined,
       getPreviousPageParam: (previous) =>
         previous?.previous?.offset ?? undefined,

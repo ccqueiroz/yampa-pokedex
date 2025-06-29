@@ -3,13 +3,7 @@ import { PokeGlassCard } from "../../pokeGlassCard/pokeGlassCard.component";
 import { Skeleton } from "../../ui/skeleton";
 import { PokeImageCard } from "./pokeImageCard/pokeImageCard.component";
 
-export const PokeCardSkeleton = ({
-  id,
-  loading,
-}: {
-  id: string;
-  loading: boolean;
-}) => {
+export const PokeCardSkeleton = ({ urlImage }: { urlImage: string }) => {
   const { translation } = useI18n();
 
   return (
@@ -38,7 +32,7 @@ export const PokeCardSkeleton = ({
             </div>
           </div>
           <div className="p-2 mt-2">
-            <PokeImageCard id={id} loading={loading} />
+            <PokeImageCard loading={true} urlImage={urlImage} />
           </div>
         </div>
         <div className="w-full flex items-center justify-around pb-2 mt-3">

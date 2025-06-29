@@ -2,19 +2,23 @@ import { useI18n } from "@/app/hooks/usei18n.hook";
 import { cn } from "@/lib/utils";
 
 export const PokeImageCard = ({
-  id,
   loading,
+  urlImage,
 }: {
-  id: string;
   loading: boolean;
+  urlImage: string;
 }) => {
   const { translation } = useI18n();
 
   return (
     <picture>
       <img
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+        src={urlImage}
         alt={translation("accessibility.whos_that_pokemon")}
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = "src/assets/unknown_pokemon.svg";
+        }}
         className={cn(
           "w-[120px] h-[120px] max-w-[120px] max-h-[120px]",
           "transition-all duration-300",
