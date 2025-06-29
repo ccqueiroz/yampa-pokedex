@@ -46,7 +46,7 @@ export const PokeList = () => {
       },
       {
         root: parentRef.current,
-        threshold: 0.05,
+        threshold: 0.1,
       }
     );
 
