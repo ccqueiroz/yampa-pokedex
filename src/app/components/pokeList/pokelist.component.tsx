@@ -3,6 +3,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { PokeCard } from "../pokeCard/pokeCard.component";
 import { usePokemonList } from "./hook/usePokeList.hook";
 import { useIsMobile } from "@/app/hooks/useMobile.hook";
+import { PokeCardProvider } from "../pokeCard/context/pokeCardProvider.component";
 
 export const PokeList = () => {
   const parentRef = useRef<HTMLDivElement | null>(null);
@@ -12,12 +13,11 @@ export const PokeList = () => {
   const isMobile = useIsMobile();
 
   const items = data?.pages.flatMap((page) => page.results) ?? [];
-  const totalPokes = data?.pages[0].count ?? 0;
 
   const rowVirtualizer = useVirtualizer({
-    count: Math.ceil(totalPokes / columns),
+    count: Math.ceil(items.length / columns),
     getScrollElement: () => parentRef.current,
-    estimateSize: () => (isMobile ? 200 : 220),
+    estimateSize: () => (isMobile ? 210 : 220),
     debug: true,
   });
 
@@ -35,22 +35,6 @@ export const PokeList = () => {
   }, []);
 
   useEffect(() => {
-    const last = rowVirtualizer.getVirtualItems().at(-1);
-    const total = Math.ceil(items.length / columns);
-
-    if (last && last.index >= total - 1 && hasNextPage && !isFetching) {
-      fetchNextPage();
-    }
-  }, [
-    items.length,
-    columns,
-    hasNextPage,
-    isFetching,
-    fetchNextPage,
-    rowVirtualizer,
-  ]);
-
-  useEffect(() => {
     if (!observerRef.current || isFetching || !hasNextPage) return;
 
     const observer = new IntersectionObserver(
@@ -62,7 +46,7 @@ export const PokeList = () => {
       },
       {
         root: parentRef.current,
-        threshold: 1.0,
+        threshold: 0.05,
       }
     );
 
@@ -80,7 +64,8 @@ export const PokeList = () => {
   return (
     <div
       ref={parentRef}
-      className="w-full h-[100vh] lg:h-[92vh] overflow-auto mt-4"
+      style={{ scrollBehavior: "smooth" }}
+      className="w-full h-[100vh] lg:h-[92vh] overflow-auto mt-4 scroll-smooth overscroll-contain touch-auto"
       id="section-main"
     >
       <div
@@ -103,20 +88,21 @@ export const PokeList = () => {
             <div
               key={row.key}
               ref={isLastRow ? observerRef : undefined}
-              className="absolute flex gap-5 left-1/2 -translate-x-1/2"
+              className="absolute flex gap-12 md:gap-5 left-1/2 -translate-x-1/2"
               style={{
                 top: row.start,
                 height: row.size,
               }}
             >
               {rowItems.map((item) => (
-                <PokeCard
+                <PokeCardProvider
                   key={item.id}
                   id={item.id}
                   name={item.name}
                   url={item.url}
-                  bg={"bg-gradient-to-br from-[#735797]/85 to-[#B6A136]/65"}
-                />
+                >
+                  <PokeCard />
+                </PokeCardProvider>
               ))}
             </div>
           );
