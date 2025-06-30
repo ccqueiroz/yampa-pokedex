@@ -72,7 +72,9 @@ export class PokemonInfoDataEntitie {
   ): AbilitiesPokemon {
     return abilities.map((ability) => ({
       slot: ability.slot,
-      ability: ability.ability.name,
+      ability: PokemonInfoDataEntitie.capitalizeFirstLetterByName(
+        ability.ability.name
+      ),
     }));
   }
 
