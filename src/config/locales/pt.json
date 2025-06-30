@@ -33,5 +33,25 @@
     "dark": "Sombrio",
     "steel": "Metal",
     "fairy": "Fada"
+  },
+  "pokemon_status": {
+    "hp": "HP",
+    "attack": "Ataque",
+    "defense": "Defesa",
+    "special-attack": "Ataque Especial",
+    "special-defense": "Defesa Especial",
+    "speed": "Velocidade",
+    "total": "Total"
+  },
+  "tabs_modal": {
+    "status": { "label": "Status" },
+    "details": {
+      "label": "Detalhes",
+      "body_content": {
+        "abilities": "Habilidades",
+        "height": "Altura",
+        "weight": "Peso"
+      }
+    }
   }
 }

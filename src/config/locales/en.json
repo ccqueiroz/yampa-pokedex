@@ -33,5 +33,25 @@
     "dark": "Dark",
     "steel": "Steel",
     "fairy": "Fairy"
+  },
+  "pokemon_status": {
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "special-attack": "Sp. atk.",
+    "special-defense": "Sp. def.",
+    "speed": "Speed",
+    "total": "Total"
+  },
+  "tabs_modal": {
+    "status": { "label": "Status" },
+    "details": {
+      "label": "Details",
+      "body_content": {
+        "abilities": "Abilities",
+        "height": "Height",
+        "weight": "Weight"
+      }
+    }
   }
 }
