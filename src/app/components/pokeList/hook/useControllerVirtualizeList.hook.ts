@@ -25,7 +25,7 @@ export const useControllerVirtualize = ({
     count: Math.ceil(pokemonList.length / columnsGrid),
     getScrollElement: () => parentRef.current,
     estimateSize: () => (isMobile ? 210 : 220),
-    debug: true,
+    debug: import.meta.env.DEV,
   });
 
   const setRowItems = useCallback(
