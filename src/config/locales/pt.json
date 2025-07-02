@@ -1,18 +1,25 @@
 {
   "inputs": {
-    "placeholder": "Buscar por nome"
+    "placeholder": "Buscar por nome",
+    "empty_pokemon_list_suggestion": "PokéDex: Nenhum Pokémon corresponde à sua busca. Tente outro nome, treinador!",
+    "empty_pokemon_list": "Nenhum Pokémon foi encontrado... Talvez eles estejam se escondendo na grama alta!"
   },
   "actions": {
     "view_details": "Ver Detalhes",
     "expand": "Expandir",
-    "rectract": "Retrair"
+    "rectract": "Retrair",
+    "loading": "Carregando..."
   },
   "accessibility": {
     "select_language": "Selecione o idioma",
     "select_language_pt": "Selecionar o idioma português",
     "select_language_en": "Selecione o idioma inglês",
     "whos_that_pokemon": "Quem é este pokémon?",
-    "pokemon_type_of": "Pokémon do tipo: "
+    "pokemon_type_of": "Pokémon do tipo: ",
+    "enter_at_least_three_char": "Digite pelo menos 3 caracteres",
+    "pokedex": "Imagem da Pokédex",
+    "pokemon_not_found_image": "Imagem da pokébola representando o erro 404 - Not Found",
+    "loading_alt": "Pokémon Togepi segurando uma pokébola."
   },
   "pokemon_type": {
     "normal": "Normal",
