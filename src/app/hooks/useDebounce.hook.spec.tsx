@@ -15,10 +15,10 @@ describe("useDebounce", () => {
   it("should call callback after delay", () => {
     const callback = vi.fn();
 
-    const { result } = renderHook(() => useDebounce(callback, 500));
+    const { result } = renderHook(() => useDebounce());
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     expect(callback).not.toBeCalled();
@@ -33,10 +33,10 @@ describe("useDebounce", () => {
   it("should reset timer if debounce is called again before delay", () => {
     const callback = vi.fn();
 
-    const { result } = renderHook(() => useDebounce(callback, 500));
+    const { result } = renderHook(() => useDebounce());
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     act(() => {
@@ -44,7 +44,7 @@ describe("useDebounce", () => {
     });
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     act(() => {
@@ -63,10 +63,10 @@ describe("useDebounce", () => {
   it("should not call callback if cancel is called before delay", () => {
     const callback = vi.fn();
 
-    const { result } = renderHook(() => useDebounce(callback, 500));
+    const { result } = renderHook(() => useDebounce());
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     act(() => {
@@ -87,10 +87,10 @@ describe("useDebounce", () => {
   it("should allow multiple debounce calls with proper execution", () => {
     const callback = vi.fn();
 
-    const { result } = renderHook(() => useDebounce(callback, 500));
+    const { result } = renderHook(() => useDebounce());
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     act(() => {
@@ -100,7 +100,7 @@ describe("useDebounce", () => {
     expect(callback).toHaveBeenCalledTimes(1);
 
     act(() => {
-      result.current.debounce();
+      result.current.debounce(callback, 500);
     });
 
     act(() => {
