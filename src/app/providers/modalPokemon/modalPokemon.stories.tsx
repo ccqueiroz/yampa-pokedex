@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ModalPokemon } from "./modalPokemon.provider";
+import ModalPokemon from "./modalPokemon.provider";
 import { modalPokemonStore } from "@/infra/store/modalPokemon.store";
 
 const meta = {
