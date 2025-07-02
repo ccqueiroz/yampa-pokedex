@@ -9,10 +9,10 @@ import {
 } from "react";
 
 type InputSearchContextProps = {
-  openSugestions: boolean;
-  setOpenSugestions: (state: boolean) => void;
-  selectedSugestion: string;
-  setSelectedSugestion: (state: string) => void;
+  openSuggestions: boolean;
+  setOpenSuggestions: (state: boolean) => void;
+  selectedSuggestion: string;
+  setSelectedSuggestion: (state: string) => void;
   inputSearchPokemonRef: RefObject<HTMLInputElement | null>;
 };
 
@@ -23,30 +23,30 @@ type InputSearchProviderProps = {
 };
 
 const InputSearchProvider = ({ children }: InputSearchProviderProps) => {
-  const [openSugestions, setOpenSugestions] = useState(false);
-  const [selectedSugestion, setSelectedSugestion] = useState("");
+  const [openSuggestions, setOpenSuggestions] = useState(false);
+  const [selectedSuggestion, setSelectedSuggestion] = useState("");
   const inputSearchPokemonRef = useRef<HTMLInputElement | null>(null);
-  const selectedSugestionRef = useRef("");
+  const selectedSuggestionRef = useRef("");
   const { getOriginalListPokemons } = usePokemonsList();
 
   useEffect(() => {
     if (
-      !selectedSugestion.length &&
-      selectedSugestion !== selectedSugestionRef.current
+      !selectedSuggestion.length &&
+      selectedSuggestion !== selectedSuggestionRef.current
     ) {
       getOriginalListPokemons();
     }
 
-    selectedSugestionRef.current = selectedSugestion;
-  }, [selectedSugestion, getOriginalListPokemons]);
+    selectedSuggestionRef.current = selectedSuggestion;
+  }, [selectedSuggestion, getOriginalListPokemons]);
 
   return (
     <InputSearchContext.Provider
       value={{
-        openSugestions,
-        setOpenSugestions,
-        selectedSugestion,
-        setSelectedSugestion,
+        openSuggestions,
+        setOpenSuggestions,
+        selectedSuggestion,
+        setSelectedSuggestion,
         inputSearchPokemonRef,
       }}
     >
