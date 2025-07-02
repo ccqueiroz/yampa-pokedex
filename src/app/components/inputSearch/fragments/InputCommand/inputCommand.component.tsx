@@ -12,27 +12,27 @@ import { cn } from "@/lib/utils";
 export const InputCommand = observer(() => {
   const { translation } = useI18n();
   const {
-    setOpenSugestions,
-    selectedSugestion,
-    setSelectedSugestion,
+    setOpenSuggestions,
+    selectedSuggestion,
+    setSelectedSuggestion,
     inputSearchPokemonRef,
   } = useInputSearch();
-  const { setSugestions, getBySuggestedPokemons, clearSugestions } =
+  const { setSuggestions, getBySuggestedPokemons, clearSuggestions } =
     usePokemonsList();
   const { debounce } = useDebounce();
 
   const handleOnChange = useCallback(
     async (search: string) => {
-      setSelectedSugestion(search);
+      setSelectedSuggestion(search);
 
       if (search.length < 3) {
-        clearSugestions();
+        clearSuggestions();
         return;
       }
 
-      debounce(() => setSugestions(search), 300);
+      debounce(() => setSuggestions(search), 300);
     },
-    [clearSugestions, debounce, setSelectedSugestion, setSugestions]
+    [clearSuggestions, debounce, setSelectedSuggestion, setSuggestions]
   );
 
   return (
@@ -41,7 +41,7 @@ export const InputCommand = observer(() => {
       <CommandPrimitive.Input
         ref={inputSearchPokemonRef}
         name="input-search-pokemon"
-        value={selectedSugestion}
+        value={selectedSuggestion}
         aria-label={translation("inputs.placeholder")}
         placeholder={translation("inputs.placeholder")}
         className={cn(
@@ -50,8 +50,8 @@ export const InputCommand = observer(() => {
           "md:text-sm"
         )}
         onValueChange={handleOnChange}
-        onBlur={() => setOpenSugestions(false)}
-        onFocus={() => setOpenSugestions(true)}
+        onBlur={() => setOpenSuggestions(false)}
+        onFocus={() => setOpenSuggestions(true)}
       />
       <Button
         name="btn-search-pokemon"
@@ -59,8 +59,8 @@ export const InputCommand = observer(() => {
         size="icon"
         className="h-6 w-6 text-secondary hover:bg-transparent"
         aria-label={translation("inputs.placeholder")}
-        onClick={() => getBySuggestedPokemons(selectedSugestion)}
-        disabled={selectedSugestion.length < 3}
+        onClick={() => getBySuggestedPokemons(selectedSuggestion)}
+        disabled={selectedSuggestion.length < 3}
       >
         <SendHorizontal className="h-5 w-5" aria-hidden="true" />
       </Button>
