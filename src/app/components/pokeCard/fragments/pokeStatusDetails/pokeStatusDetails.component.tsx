@@ -22,6 +22,7 @@ export const PokeStatusDetails = observer(() => {
         "transition-height",
         !open ? "animate-accordion-open" : "animate-accordion-close"
       )}
+      aria-expanded={open}
     >
       {open && (
         <>
