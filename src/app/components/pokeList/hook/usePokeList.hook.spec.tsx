@@ -1,4 +1,4 @@
-import { describe, it, vi, beforeEach, expect } from "vitest";
+import { describe, it, vi, beforeEach, expect, type Mock } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { usePokemonList } from "./usePokeList.hook";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -67,7 +67,7 @@ describe("usePokemonList", () => {
       ],
     };
 
-    (currentMockExecute as vi.Mock).mockResolvedValueOnce(mockResponse);
+    (currentMockExecute as Mock).mockResolvedValueOnce(mockResponse);
 
     const { result } = renderHook(() => usePokemonList(), {
       wrapper: createWrapper(),
@@ -86,9 +86,7 @@ describe("usePokemonList", () => {
   });
 
   it("should not call setPokemons if execute fails", async () => {
-    (currentMockExecute as vi.Mock).mockRejectedValueOnce(
-      new Error("API error")
-    );
+    (currentMockExecute as Mock).mockRejectedValueOnce(new Error("API error"));
 
     const { result } = renderHook(() => usePokemonList(), {
       wrapper: createWrapper(),
@@ -116,7 +114,7 @@ describe("usePokemonList", () => {
       ],
     };
 
-    (currentMockExecute as vi.Mock).mockResolvedValueOnce(response);
+    (currentMockExecute as Mock).mockResolvedValueOnce(response);
 
     const { result } = renderHook(() => usePokemonList(), {
       wrapper: createWrapper(),
