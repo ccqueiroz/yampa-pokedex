@@ -36,7 +36,8 @@ export const PokeGlassCard = ({
         "relative overflow-hidden",
         "rounded-xl border-1 border-white/20",
         "shadow-[inset_0px_0px_12px_rgba(255,255,255,0.4),0_6px_12px_rgba(0,0,0,0.2),_0_0_0_1px_rgba(255,255,255,0.6)]",
-        "backdrop-blur-[15px] group",
+        "backdrop-blur-[15px] group bg-gray-300",
+        "animate-fade-in",
         className
       )}
       {...props}
