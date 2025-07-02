@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { useI18n } from "@/app/hooks/usei18n.hook";
 
 const styleBase = "w-full flex justify-start items-center gap-2";
-const styleLabel = "text-sm text-white";
-const styleValue = "text-sm font-light text-white/80";
+const styleLabel = "text-sm text-white font-semibold tracking-wider";
+const styleValue = "text-sm text-white font-semibold";
 
 export const PokeStatusDetails = observer(() => {
   const { translation } = useI18n();
