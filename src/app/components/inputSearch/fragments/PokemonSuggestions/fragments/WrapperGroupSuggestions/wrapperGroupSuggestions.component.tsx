@@ -13,7 +13,10 @@ export const WrapperGroupSuggestions = ({
   const { translation } = useI18n();
 
   return (
-    <div className="min-h-4 absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none">
+    <div
+      role="listbox"
+      className="min-h-4 absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none"
+    >
       <CommandList>
         <CommandEmpty className="p-0">
           <div className="w-full flex p-1 gap-1">
