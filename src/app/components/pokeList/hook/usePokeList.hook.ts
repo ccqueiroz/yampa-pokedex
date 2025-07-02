@@ -1,41 +1,19 @@
-import { PokemonEntitie } from "@/domain/pokemon/pokemon.entitie";
-import { httpInfra } from "@/infra/http/index.http.infra";
-import { pokemonListStore } from "@/infra/store/pokemonList.store";
-import { GetPokeListService } from "@/service/getPokeList.service";
-import { GetPokeListUseCase } from "@/usecase/getPokeList.usecase";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useAccordionStatusPokemon } from "@/app/context/useAccordionStatusPokemon.context";
+import { useFetchPokeList } from "./useFetchPokeList.hook";
+import { useControllerPositionCard } from "./useControllerPositionCard.hook";
 
-const getPokeListService = new GetPokeListService(httpInfra());
-const getPokeListUseCase = new GetPokeListUseCase({
-  service: getPokeListService,
-  pokeEntitie: PokemonEntitie,
-});
+export const usePokeList = () => {
+  const { fetchNextPage, isFetching, hasNextPage } = useFetchPokeList();
+  const { idCard } = useAccordionStatusPokemon();
 
-export const usePokemonList = () => {
-  const { fetchNextPage, isFetching, hasNextPage, hasPreviousPage } =
-    useInfiniteQuery({
-      queryKey: ["pokemons"],
-      initialPageParam: 1,
-      queryFn: async ({ pageParam = 1, signal }) => {
-        const pokemons = await getPokeListUseCase.execute({
-          limit: 1400,
-          offset: pageParam,
-          signal,
-        });
-        pokemonListStore.setPokemons(pokemons.results);
-
-        return pokemons;
-      },
-      getNextPageParam: (lastPage) => lastPage?.next?.offset ?? undefined,
-      getPreviousPageParam: (previous) =>
-        previous?.previous?.offset ?? undefined,
-      staleTime: 20 * 60 * 1000,
-    });
+  const { columnsGrid, controllStartPositionCard } =
+    useControllerPositionCard(idCard);
 
   return {
+    columnsGrid,
+    controllStartPositionCard,
     fetchNextPage,
     isFetching,
     hasNextPage,
-    hasPreviousPage,
   };
 };
