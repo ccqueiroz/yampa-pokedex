@@ -1,5 +1,6 @@
 import { useI18n } from "@/app/hooks/usei18n.hook";
 import { cn } from "@/lib/utils";
+import UnknownPokemon from "@/assets/unknown_pokemon.svg";
 
 export const PokeImage = ({
   urlImage,
@@ -17,7 +18,7 @@ export const PokeImage = ({
         alt={translation("accessibility.whos_that_pokemon")}
         onError={(e) => {
           e.currentTarget.onerror = null;
-          e.currentTarget.src = "src/assets/unknown_pokemon.svg";
+          e.currentTarget.src = UnknownPokemon;
         }}
         className={cn(
           "transition-all duration-300",
