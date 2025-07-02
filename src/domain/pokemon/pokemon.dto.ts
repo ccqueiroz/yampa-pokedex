@@ -6,6 +6,8 @@ export type Pokemon = {
 
 export type ListPokemon = Array<Pokemon>;
 
+export type PokemonName = Required<Omit<Pokemon, "url">>;
+
 export type QueriesParamsToListPokemon = {
   offset: number | null;
   limit: number | null;

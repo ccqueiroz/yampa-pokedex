@@ -19,7 +19,7 @@ const ModalPokemon = observer(() => {
       }}
     >
       <DialogContent
-        className="w-full max-w-[410px] px-6 py-6 rounded-2xl"
+        className="w-full max-w-[410px] px-6 py-6 rounded-2xl animate-fade-in"
         style={{ backgroundImage: pokeModalStore.pokemon?.bgCardPoke }}
       >
         <PokeHeaderModal />

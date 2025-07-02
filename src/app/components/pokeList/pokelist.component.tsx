@@ -4,15 +4,19 @@ import { PokeCard } from "../pokeCard/pokeCard.component";
 import { usePokemonList } from "./hook/usePokeList.hook";
 import { useIsMobile } from "@/app/hooks/useMobile.hook";
 import { PokeCardProvider } from "../pokeCard/context/pokeCardProvider.component";
+import { observer } from "mobx-react-lite";
+import { pokemonListStore } from "@/infra/store/pokemonList.store";
+import { EmptyPokemonList } from "./fragments/EmptyPokemonList/emptyPokemonList.component";
+import { Loading } from "../loading/loading.component";
 
-export const PokeList = () => {
+export const PokeList = observer(() => {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
   const [columns, setColumns] = useState(1);
-  const { data, fetchNextPage, isFetching, hasNextPage } = usePokemonList();
+  const { fetchNextPage, isFetching, hasNextPage } = usePokemonList();
   const isMobile = useIsMobile();
 
-  const items = data?.pages.flatMap((page) => page.results) ?? [];
+  const items = [...pokemonListStore.pokemonListToShow];
 
   const rowVirtualizer = useVirtualizer({
     count: Math.ceil(items.length / columns),
@@ -46,7 +50,7 @@ export const PokeList = () => {
       },
       {
         root: parentRef.current,
-        threshold: 0.1,
+        threshold: 1,
       }
     );
 
@@ -62,52 +66,81 @@ export const PokeList = () => {
   }, [columns, isMobile, rowVirtualizer]);
 
   return (
-    <div
-      ref={parentRef}
-      style={{ scrollBehavior: "smooth" }}
-      className="w-full h-[100vh] lg:h-[92vh] overflow-auto mt-4 scroll-smooth overscroll-contain touch-auto"
-      id="section-main"
-    >
-      <div
-        style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-          position: "relative",
-        }}
-      >
-        {rowVirtualizer.getVirtualItems().map((row, i, all) => {
-          const rowItems = items.slice(
-            row.index * columns,
-            Math.min(items.length, (row.index + 1) * columns)
-          );
+    <>
+      {isFetching && <Loading />}
+      <div className="relative w-full">
+        {rowVirtualizer.getVirtualItems().length >= 5 && (
+          <div className="pointer-events-none absolute bottom-0 left-0 w-full h-2 bg-gradient-to-t from-black/10 to-transparent z-20 rounded-3xl" />
+        )}
+        <div
+          ref={parentRef}
+          style={{
+            scrollBehavior: "smooth",
+            minHeight: !rowVirtualizer.getVirtualItems().length
+              ? "400px"
+              : undefined,
+          }}
+          className="w-full h-[calc(100vh-150px)] md:h-[calc(100vh-92px)] overflow-auto mt-4 scroll-smooth overscroll-contain touch-auto"
+          id="section-main"
+        >
+          <div
+            style={{
+              height: `${rowVirtualizer.getTotalSize()}px`,
+              position: "relative",
+            }}
+          >
+            {!!rowVirtualizer.getVirtualItems().length &&
+              rowVirtualizer.getVirtualItems().map((row, i, all) => {
+                const rowItems = items.slice(
+                  row.index * columns,
+                  Math.min(items.length, (row.index + 1) * columns)
+                );
 
-          if (rowItems.length === 0) return null;
+                if (rowItems.length === 0) return null;
 
-          const isLastRow = i === all.length - 1;
+                const missingColumns = columns - rowItems.length;
 
-          return (
-            <div
-              key={row.key}
-              ref={isLastRow ? observerRef : undefined}
-              className="absolute flex gap-12 md:gap-5 left-1/2 -translate-x-1/2"
-              style={{
-                top: row.start,
-                height: row.size,
-              }}
-            >
-              {rowItems.map((item) => (
-                <PokeCardProvider
-                  key={item.id}
-                  id={item.id}
-                  name={item.name}
-                  url={item.url}
-                >
-                  <PokeCard />
-                </PokeCardProvider>
-              ))}
-            </div>
-          );
-        })}
+                const listWithMissingColumns = [
+                  ...Array(missingColumns).keys(),
+                ];
+
+                const isLastRow = i === all.length - 1;
+
+                return (
+                  <div
+                    key={row.key}
+                    ref={isLastRow ? observerRef : undefined}
+                    className="absolute flex gap-12 md:gap-5 left-1/2 -translate-x-1/2"
+                    style={{
+                      top: row.start,
+                      height: row.size,
+                    }}
+                  >
+                    {rowItems.map((item) => (
+                      <PokeCardProvider
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        url={item.url}
+                      >
+                        <PokeCard />
+                      </PokeCardProvider>
+                    ))}
+                    {listWithMissingColumns.map((_, i) => (
+                      <div
+                        key={`placeholder-${i}`}
+                        className="w-[320px] md:w-[350px] h-full max-w-[350px] min-w-80 min-h-40 scale-95 md:scale-100"
+                      ></div>
+                    ))}
+                  </div>
+                );
+              })}
+            {!isFetching && !rowVirtualizer.getVirtualItems().length && (
+              <EmptyPokemonList />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
-};
+});

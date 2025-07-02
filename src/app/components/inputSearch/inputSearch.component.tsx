@@ -1,43 +1,26 @@
-import { useI18n } from "@/app/hooks/usei18n.hook";
-import { Input } from "../ui/input";
-import { Search, SendHorizontal } from "lucide-react";
-import { Button } from "../ui/button";
-import { useState, type ChangeEvent } from "react";
+import { lazy } from "react";
+import { Command } from "../ui/command";
+
+import { InputSearchProvider } from "./context/InputSearch.provider";
+import { InputCommand } from "./fragments/InputCommand/inputCommand.component";
+
+const PokemonSuggestions = lazy(() =>
+  import("./fragments/PokemonSuggestions/pokemonSuggestions.component").then(
+    (module) => ({
+      default: module.default,
+    })
+  )
+);
 
 export const InputSearch = () => {
-  const { translation } = useI18n();
-  const [value, setValue] = useState("");
-
-  const handleOnChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-
   return (
-    <div
-      role="search"
-      className="w-full max-w-96 md:max-w-80 flex items-center border rounded-md px-3 bg-background border-border text-secondary"
-    >
-      <Search className="mr-2 h-5 w-5 text-secondary" aria-hidden="true" />
-      <Input
-        name="input-search"
-        type="search"
-        aria-label={translation("inputs.placeholder")}
-        placeholder={translation("inputs.placeholder")}
-        className="border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 text-secondary placeholder:text-secondary p-0"
-        onChange={handleOnChange}
-        value={value}
-        autoComplete="off"
-        spellCheck={false}
-      />
-      <Button
-        name="btn-search"
-        variant="ghost"
-        size="icon"
-        className="ml-2 h-6 w-6 text-secondary hover:bg-transparent"
-        aria-label={translation("inputs.placeholder")}
-      >
-        <SendHorizontal className="h-5 w-5" aria-hidden="true" />
-      </Button>
-    </div>
+    <InputSearchProvider>
+      <div role="search" className="w-full h-9 max-w-96 md:max-w-80">
+        <Command className="overflow-visible bg-transparent">
+          <InputCommand />
+          <PokemonSuggestions />
+        </Command>
+      </div>
+    </InputSearchProvider>
   );
 };

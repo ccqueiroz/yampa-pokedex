@@ -17,7 +17,7 @@ export type DataPokemonModal = {
   types: TypesPokemon;
 };
 
-class ModalPokemon {
+export class ModalPokemon {
   open: boolean = false;
   loading: boolean = false;
   pokemon: DataPokemonModal | null = null;

@@ -86,12 +86,17 @@ export default {
           "50%": { opacity: "1" },
           "100%": { transform: "translateX(100%) skewX(-20deg)", opacity: "0" },
         },
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "shine": "shine 0.9s ease-in-out forwards",
+        shine: "shine 0.9s ease-in-out forwards",
         "shine-delay": "shine 0.9s ease-in-out forwards 0.15s",
+        "fade-in": "fade-in 0.4s ease-out",
       },
     },
   },
