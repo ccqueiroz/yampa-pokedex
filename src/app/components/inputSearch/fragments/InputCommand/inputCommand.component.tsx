@@ -8,6 +8,7 @@ import { useInputSearch } from "../../context/InputSearch.provider";
 import { usePokemonsList } from "@/app/context/usePokemonsList.context";
 import { useDebounce } from "@/app/hooks/useDebouce.hook";
 import { cn } from "@/lib/utils";
+import { useAccordionStatusPokemon } from "@/app/context/useAccordionStatusPokemon.context";
 
 export const InputCommand = observer(() => {
   const { translation } = useI18n();
@@ -19,6 +20,7 @@ export const InputCommand = observer(() => {
   } = useInputSearch();
   const { setSuggestions, getBySuggestedPokemons, clearSuggestions } =
     usePokemonsList();
+  const { openAccordion } = useAccordionStatusPokemon();
   const { debounce } = useDebounce();
 
   const handleOnChange = useCallback(
@@ -59,7 +61,10 @@ export const InputCommand = observer(() => {
         size="icon"
         className="h-6 w-6 text-secondary hover:bg-transparent"
         aria-label={translation("inputs.placeholder")}
-        onClick={() => getBySuggestedPokemons(selectedSuggestion)}
+        onClick={() => {
+          getBySuggestedPokemons(selectedSuggestion);
+          openAccordion(null);
+        }}
         disabled={selectedSuggestion.length < 3}
       >
         <SendHorizontal className="h-5 w-5" aria-hidden="true" />
