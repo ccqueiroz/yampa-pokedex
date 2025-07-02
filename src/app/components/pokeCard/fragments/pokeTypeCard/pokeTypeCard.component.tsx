@@ -9,7 +9,7 @@ export const PokeTypeCard = () => {
   if (!types.length) return <></>;
 
   return (
-    <div className="w-max-[200px] flex justify-between mb-3 gap-2">
+    <div className="w-max-[200px] flex justify-start mb-3 gap-2">
       {types.map((type) => (
         <Button
           className="cursor-default min-w-[63px] rounded-3xl"
