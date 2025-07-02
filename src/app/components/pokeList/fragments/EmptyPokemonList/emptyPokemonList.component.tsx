@@ -1,4 +1,5 @@
 import { useI18n } from "@/app/hooks/usei18n.hook";
+import PokemonsNotFound from "@/assets/pokemons_not_found.png";
 
 export const EmptyPokemonList = () => {
   const { translation } = useI18n();
@@ -6,7 +7,7 @@ export const EmptyPokemonList = () => {
     <div className="relative w-full h-full flex justify-center" role="status">
       <picture className="relative w-full h-[400px] md:h-[600px]">
         <img
-          src="src/assets/pokemons_not_found.png"
+          src={PokemonsNotFound}
           alt={translation("inputs.empty_pokemon_list")}
           className="max-w-[320px] md:max-w-[600px] mx-auto"
         />

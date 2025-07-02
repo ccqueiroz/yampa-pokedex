@@ -1,4 +1,5 @@
 import { useI18n } from "@/app/hooks/usei18n.hook";
+import loadingSvg from "@/assets/loading.svg";
 
 export const Loading = () => {
   const { translation } = useI18n();
@@ -12,7 +13,7 @@ export const Loading = () => {
       <div className="w-full h-full flex flex-col justify-center items-center">
         <picture>
           <img
-            src="src/assets/loading.svg"
+            src={loadingSvg}
             className="max-w-[300px] mx-auto opacity-90"
             alt={translation("accessibility.loading_alt")}
           />

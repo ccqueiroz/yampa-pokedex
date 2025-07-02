@@ -4,6 +4,7 @@ import {
   CommandList,
 } from "@/app/components/ui/command";
 import { useI18n } from "@/app/hooks/usei18n.hook";
+import pokedexSvg from "@/assets/pokedex.png";
 
 export const WrapperGroupSuggestions = ({
   children,
@@ -23,7 +24,7 @@ export const WrapperGroupSuggestions = ({
             <div className="pt-1 ml-2">
               <picture>
                 <img
-                  src="src/assets/pokedex.png"
+                  src={pokedexSvg}
                   className="w-12 h-8"
                   alt={translation("accessibility.pokedex")}
                 />
