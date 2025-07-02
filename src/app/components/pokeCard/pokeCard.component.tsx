@@ -4,12 +4,18 @@ import { PokeImageCard } from "./fragments/pokeImageCard/pokeImageCard.component
 import { PokeDetails } from "./fragments/pokerDetails/pokeDetails.components";
 import { usePokeCard } from "./context/pokeCardProvider.component";
 import { PokeStatusDetails } from "./fragments/pokeStatusDetails/pokeStatusDetails.component";
+import { useI18n } from "@/app/hooks/usei18n.hook";
 
 export const PokeCard = () => {
+  const { translation } = useI18n();
   const { nameFormated, bgCardPoke, urlImage } = usePokeCard();
 
   return (
-    <div className="group w-[320px] md:w-[350px] h-full max-w-[350px] min-w-80 min-h-40 scale-95 md:scale-100">
+    <div
+      className="group w-[320px] md:w-[350px] h-full max-w-[350px] min-w-80 min-h-40 scale-95 md:scale-100"
+      role="listitem"
+      aria-label={`${translation("accessibility.pokemon_card")}${nameFormated}`}
+    >
       <PokeGlassCard className="min-h-40 px-1" bg={bgCardPoke}>
         <div className="w-full min-h-40 flex justify-between px-2 pt-4">
           <div className="h-full flex flex-col pt-4">

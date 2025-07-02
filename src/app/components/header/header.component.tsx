@@ -1,10 +1,12 @@
+import { useI18n } from "@/app/hooks/usei18n.hook";
 import { ButtonTransalation } from "../buttonTranslation/buttonTransalation.component";
 import { InputSearch } from "../inputSearch/inputSearch.component";
 
 export const Header = () => {
+  const { translation } = useI18n();
   return (
     <header
-      aria-label="Header Pokédex"
+      aria-label={translation("accessibility.header_pokemon")}
       className="
       w-full
       grid

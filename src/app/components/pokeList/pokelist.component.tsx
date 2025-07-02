@@ -30,7 +30,8 @@ export const PokeList = observer(() => {
   return (
     <>
       {isFetching && <Loading />}
-      <div className="relative w-full">
+
+      <div className="relative w-full" aria-live="polite">
         {rowVirtualizer.getVirtualItems().length >= 5 && (
           <div className="pointer-events-none absolute bottom-0 left-0 w-full h-2 bg-gradient-to-t from-black/10 to-transparent z-20 rounded-3xl" />
         )}
@@ -46,6 +47,7 @@ export const PokeList = observer(() => {
           id="section-main"
         >
           <div
+            role="list"
             style={{
               height: `${rowVirtualizer.getTotalSize()}px`,
               position: "relative",
@@ -67,6 +69,7 @@ export const PokeList = observer(() => {
 
                 return (
                   <div
+                    role="listitem"
                     key={row.key}
                     ref={isLastRow ? observerRef : undefined}
                     className="absolute flex gap-12 md:gap-5 left-1/2 -translate-x-1/2"

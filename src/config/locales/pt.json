@@ -11,6 +11,7 @@
     "loading": "Carregando..."
   },
   "accessibility": {
+    "header_pokemon": "Cabeçalho da Pokédex com botão de idioma e campo de busca",
     "select_language": "Selecione o idioma",
     "select_language_pt": "Selecionar o idioma português",
     "select_language_en": "Selecione o idioma inglês",
@@ -19,7 +20,8 @@
     "enter_at_least_three_char": "Digite pelo menos 3 caracteres",
     "pokedex": "Imagem da Pokédex",
     "pokemon_not_found_image": "Imagem da pokébola representando o erro 404 - Not Found",
-    "loading_alt": "Pokémon Togepi segurando uma pokébola."
+    "loading_alt": "Pokémon Togepi segurando uma pokébola.",
+    "pokemon_card": "Cartão do Pokémon "
   },
   "pokemon_type": {
     "normal": "Normal",

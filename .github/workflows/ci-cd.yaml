@@ -1,0 +1,36 @@
+name: Deploy Yampa Pokémon
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: Instalando dependências
+        run: yarn install --fronzen-lockfile
+
+      - name: Realizando testes unitários
+        run: yarn test:coverage
+
+      - name: Build
+        run: yarn build
+
+      - name: 🚀 Deploy para GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
