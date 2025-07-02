@@ -65,20 +65,20 @@ export default {
         input: "hsl(var(--input))",
       },
       keyframes: {
-        "accordion-down": {
+        "accordion-open": {
           from: {
-            height: "0",
+            height: "156px",
           },
           to: {
-            height: "var(--radix-accordion-content-height)",
+            height: "min-content",
           },
         },
-        "accordion-up": {
+        "accordion-close": {
           from: {
-            height: "var(--radix-accordion-content-height)",
+            height: "156px",
           },
           to: {
-            height: "0",
+            height: "min-content",
           },
         },
         shine: {
@@ -92,8 +92,8 @@ export default {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "accordion-open": "accordion-open 0.25s ease-out",
+        "accordion-close": "accordion-close 0.25s ease-out",
         shine: "shine 0.9s ease-in-out forwards",
         "shine-delay": "shine 0.9s ease-in-out forwards 0.15s",
         "fade-in": "fade-in 0.4s ease-out",
