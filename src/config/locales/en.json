@@ -11,6 +11,7 @@
     "loading": "Loading..."
   },
   "accessibility": {
+    "header_pokemon": "Pokédex header with language button and search field",
     "select_language": "Select language",
     "select_language_pt": "Select the portuguese language",
     "select_language_en": "Select English language",
@@ -19,7 +20,8 @@
     "enter_at_least_three_char": "Enter at least 3 characters",
     "pokedex": "Pokédex image",
     "pokemon_not_found_image": "Image of the pokeball representing the error 404 - Not Found",
-    "loading_alt": "Pokémon Togepi holding a Pokéball."
+    "loading_alt": "Pokémon Togepi holding a Pokéball.",
+    "pokemon_card": "Pokémon card "
   },
   "pokemon_type": {
     "normal": "Normal",
