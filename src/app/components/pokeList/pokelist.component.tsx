@@ -1,4 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { PokeCard } from "../pokeCard/pokeCard.component";
 import { usePokemonList } from "./hook/usePokeList.hook";
@@ -8,12 +15,14 @@ import { observer } from "mobx-react-lite";
 import { pokemonListStore } from "@/infra/store/pokemonList.store";
 import { EmptyPokemonList } from "./fragments/EmptyPokemonList/emptyPokemonList.component";
 import { Loading } from "../loading/loading.component";
+import { useAccordionStatusPokemon } from "@/app/context/useAccordionStatusPokemon.context";
 
 export const PokeList = observer(() => {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
   const [columns, setColumns] = useState(1);
   const { fetchNextPage, isFetching, hasNextPage } = usePokemonList();
+  const { idCard } = useAccordionStatusPokemon();
   const isMobile = useIsMobile();
 
   const items = [...pokemonListStore.pokemonListToShow];
@@ -24,6 +33,20 @@ export const PokeList = observer(() => {
     estimateSize: () => (isMobile ? 210 : 220),
     debug: true,
   });
+
+  const controllStartPositionCard = useCallback(
+    (rowStart: number, rowIndex: number) => {
+      if (!idCard || columns > 1) return rowStart;
+
+      const indexOfCard = items.findIndex(
+        (item) => item.id === idCard.toString()
+      );
+      const rowOfCard = Math.floor(indexOfCard / columns);
+
+      return rowIndex > rowOfCard ? rowStart + 130 : rowStart;
+    },
+    [columns, idCard, items]
+  );
 
   useLayoutEffect(() => {
     const resize = () => {
@@ -112,7 +135,7 @@ export const PokeList = observer(() => {
                     ref={isLastRow ? observerRef : undefined}
                     className="absolute flex gap-12 md:gap-5 left-1/2 -translate-x-1/2"
                     style={{
-                      top: row.start,
+                      top: controllStartPositionCard(row.start, row.index),
                       height: row.size,
                     }}
                   >
