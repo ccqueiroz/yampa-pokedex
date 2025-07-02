@@ -24,8 +24,13 @@ export const ButtonTransalation = () => {
   };
 
   return (
-    <div role="group" aria-label={translation("accessibility.select_language")}>
+    <div
+      role="radiogroup"
+      aria-label={translation("accessibility.select_language")}
+    >
       <Button
+        role="radio"
+        aria-checked={active}
         className={cn(
           "h-10 rounded-s-lg rounded-e-none",
           active ? styleActive : styleOutline
@@ -38,6 +43,8 @@ export const ButtonTransalation = () => {
         <span>PT</span>
       </Button>
       <Button
+        role="radio"
+        aria-checked={active}
         aria-label={translation("accessibility.select_language_en")}
         className={cn(
           "h-10 rounded-s-none rounded-e-lg ",
