@@ -1,92 +1,31 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import { PokeCard } from "../pokeCard/pokeCard.component";
-import { usePokemonList } from "./hook/usePokeList.hook";
-import { useIsMobile } from "@/app/hooks/useMobile.hook";
 import { PokeCardProvider } from "../pokeCard/context/pokeCardProvider.component";
 import { observer } from "mobx-react-lite";
 import { pokemonListStore } from "@/infra/store/pokemonList.store";
 import { EmptyPokemonList } from "./fragments/EmptyPokemonList/emptyPokemonList.component";
 import { Loading } from "../loading/loading.component";
-import { useAccordionStatusPokemon } from "@/app/context/useAccordionStatusPokemon.context";
+import { useControllerVirtualize } from "./hook/useControllerVirtualizeList.hook";
+import { usePokeList } from "./hook/usePokeList.hook";
 
 export const PokeList = observer(() => {
-  const parentRef = useRef<HTMLDivElement | null>(null);
-  const observerRef = useRef<HTMLDivElement | null>(null);
-  const [columns, setColumns] = useState(1);
-  const { fetchNextPage, isFetching, hasNextPage } = usePokemonList();
-  const { idCard } = useAccordionStatusPokemon();
-  const isMobile = useIsMobile();
-
   const items = [...pokemonListStore.pokemonListToShow];
 
-  const rowVirtualizer = useVirtualizer({
-    count: Math.ceil(items.length / columns),
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => (isMobile ? 210 : 220),
-    debug: true,
-  });
+  const {
+    columnsGrid,
+    controllStartPositionCard,
+    fetchNextPage,
+    isFetching,
+    hasNextPage,
+  } = usePokeList();
 
-  const controllStartPositionCard = useCallback(
-    (rowStart: number, rowIndex: number) => {
-      if (!idCard || columns > 1) return rowStart;
-
-      const indexOfCard = items.findIndex(
-        (item) => item.id === idCard.toString()
-      );
-      const rowOfCard = Math.floor(indexOfCard / columns);
-
-      return rowIndex > rowOfCard ? rowStart + 130 : rowStart;
-    },
-    [columns, idCard, items]
-  );
-
-  useLayoutEffect(() => {
-    const resize = () => {
-      const width = document.getElementById("section-main")?.offsetWidth ?? 0;
-      if (width <= 500) setColumns(1);
-      else if (width <= 1100) setColumns(2);
-      else if (width <= 1500) setColumns(3);
-      else setColumns(Math.floor(width / 350));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  useEffect(() => {
-    if (!observerRef.current || isFetching || !hasNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      {
-        root: parentRef.current,
-        threshold: 1,
-      }
-    );
-
-    observer.observe(observerRef.current);
-
-    return () => {
-      if (observerRef!.current) observer.unobserve(observerRef!.current);
-    };
-  }, [isFetching, hasNextPage, fetchNextPage]);
-
-  useEffect(() => {
-    rowVirtualizer.measure();
-  }, [columns, isMobile, rowVirtualizer]);
+  const { parentRef, observerRef, rowVirtualizer, setRowItems } =
+    useControllerVirtualize({
+      columnsGrid,
+      isFetching,
+      hasNextPage,
+      fetchNextPage,
+      pokemonList: items,
+    });
 
   return (
     <>
@@ -114,14 +53,11 @@ export const PokeList = observer(() => {
           >
             {!!rowVirtualizer.getVirtualItems().length &&
               rowVirtualizer.getVirtualItems().map((row, i, all) => {
-                const rowItems = items.slice(
-                  row.index * columns,
-                  Math.min(items.length, (row.index + 1) * columns)
-                );
+                const rowItems = setRowItems(row.index);
 
                 if (rowItems.length === 0) return null;
 
-                const missingColumns = columns - rowItems.length;
+                const missingColumns = columnsGrid - rowItems.length;
 
                 const listWithMissingColumns = [
                   ...Array(missingColumns).keys(),

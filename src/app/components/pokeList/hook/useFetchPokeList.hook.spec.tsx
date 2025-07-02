@@ -1,6 +1,6 @@
 import { describe, it, vi, beforeEach, expect, type Mock } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { usePokemonList } from "./usePokeList.hook";
+import { useFetchPokeList } from "./useFetchPokeList.hook";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GetPokeListUseCase } from "@/usecase/getPokeList.usecase";
 import * as store from "@/infra/store/pokemonList.store";
@@ -42,7 +42,7 @@ const createWrapper = () => {
   );
 };
 
-describe("usePokemonList", () => {
+describe("useFetchPokeList", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -69,7 +69,7 @@ describe("usePokemonList", () => {
 
     (currentMockExecute as Mock).mockResolvedValueOnce(mockResponse);
 
-    const { result } = renderHook(() => usePokemonList(), {
+    const { result } = renderHook(() => useFetchPokeList(), {
       wrapper: createWrapper(),
     });
 
@@ -88,7 +88,7 @@ describe("usePokemonList", () => {
   it("should not call setPokemons if execute fails", async () => {
     (currentMockExecute as Mock).mockRejectedValueOnce(new Error("API error"));
 
-    const { result } = renderHook(() => usePokemonList(), {
+    const { result } = renderHook(() => useFetchPokeList(), {
       wrapper: createWrapper(),
     });
 
@@ -116,7 +116,7 @@ describe("usePokemonList", () => {
 
     (currentMockExecute as Mock).mockResolvedValueOnce(response);
 
-    const { result } = renderHook(() => usePokemonList(), {
+    const { result } = renderHook(() => useFetchPokeList(), {
       wrapper: createWrapper(),
     });
 
