@@ -3,7 +3,7 @@ import { useI18n } from "@/app/hooks/usei18n.hook";
 export const EmptyPokemonList = () => {
   const { translation } = useI18n();
   return (
-    <div className="relative w-full h-full flex justify-center">
+    <div className="relative w-full h-full flex justify-center" role="status">
       <picture className="relative w-full h-[400px] md:h-[600px]">
         <img
           src="src/assets/pokemons_not_found.png"
