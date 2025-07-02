@@ -27,6 +27,7 @@ export const SuggestionsItems = observer(() => {
             e.preventDefault();
           }}
           className="cursor-pointer"
+          role="option"
           disabled
         >
           {translation("accessibility.enter_at_least_three_char")}
@@ -34,6 +35,7 @@ export const SuggestionsItems = observer(() => {
       )}
       {pokemonsSearchSuggestion.map((suggestion) => (
         <CommandItem
+          role="option"
           key={`${suggestion.id}-${suggestion.name}`}
           onMouseDown={(e) => {
             e.preventDefault();
