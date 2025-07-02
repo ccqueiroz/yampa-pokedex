@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { binarySearchPrefixStart } from "./binarySearchPrefixStart"; // ajuste o caminho conforme necessário
+import { binarySearchPrefixStart } from "./binarySearchPrefixStart";
 import type { PokemonName } from "@/domain/pokemon/pokemon.dto";
 
 const sampleList: PokemonName[] = [
@@ -17,12 +17,12 @@ const sampleList: PokemonName[] = [
 describe("binarySearchPrefixStart", () => {
   it("should return correct index for prefix that matches exactly one item", () => {
     const index = binarySearchPrefixStart(sampleList, "pik");
-    expect(index).toBe(6); // pikachu
+    expect(index).toBe(6);
   });
 
   it("should return first index of multiple matches", () => {
     const index = binarySearchPrefixStart(sampleList, "char");
-    expect(index).toBe(3); // charmander, charmeleon, charizard
+    expect(index).toBe(3);
   });
 
   it("should return -1 when no match is found", () => {
@@ -37,16 +37,16 @@ describe("binarySearchPrefixStart", () => {
 
   it("should be case insensitive", () => {
     const index = binarySearchPrefixStart(sampleList, "BUT");
-    expect(index).toBe(1); // butterfree
+    expect(index).toBe(1);
   });
 
   it("should return index 0 if first element matches", () => {
     const index = binarySearchPrefixStart(sampleList, "bulb");
-    expect(index).toBe(0); // bulbasaur
+    expect(index).toBe(0);
   });
 
   it("should return correct index if last element matches", () => {
     const index = binarySearchPrefixStart(sampleList, "rat");
-    expect(index).toBe(8); // rattata
+    expect(index).toBe(8);
   });
 });
