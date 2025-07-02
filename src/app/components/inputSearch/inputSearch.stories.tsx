@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-pokemonListStore.pokemonsSearchSugestion = [
+pokemonListStore.pokemonsSearchSuggestion = [
   { id: "1", name: "bulbasaur" },
   { id: "4", name: "charmander" },
   { id: "7", name: "squirtle" },
