@@ -1,11 +1,24 @@
-import { PokeCard } from "../pokeCard/pokeCard.component";
 import { PokeCardProvider } from "../pokeCard/context/pokeCardProvider.component";
 import { observer } from "mobx-react-lite";
 import { pokemonListStore } from "@/infra/store/pokemonList.store";
-import { EmptyPokemonList } from "./fragments/EmptyPokemonList/emptyPokemonList.component";
 import { Loading } from "../loading/loading.component";
 import { useControllerVirtualize } from "./hook/useControllerVirtualizeList.hook";
 import { usePokeList } from "./hook/usePokeList.hook";
+import { lazy } from "react";
+
+const EmptyPokemonList = lazy(() =>
+  import("./fragments/EmptyPokemonList/emptyPokemonList.component").then(
+    (module) => ({
+      default: module.EmptyPokemonList,
+    })
+  )
+);
+
+const PokeCard = lazy(() =>
+  import("../pokeCard/pokeCard.component").then((module) => ({
+    default: module.PokeCard,
+  }))
+);
 
 export const PokeList = observer(() => {
   const items = [...pokemonListStore.pokemonListToShow];
