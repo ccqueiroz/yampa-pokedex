@@ -16,6 +16,7 @@ export const Loading = () => {
             src={loadingSvg}
             className="max-w-[300px] mx-auto opacity-90"
             alt={translation("accessibility.loading_alt")}
+            fetchPriority="high"
           />
         </picture>
         <span className="text-2xl text-primary -mt-8">
