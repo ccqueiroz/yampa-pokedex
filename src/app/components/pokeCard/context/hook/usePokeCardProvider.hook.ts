@@ -4,7 +4,7 @@ import { GetPokemonUseCase } from "@/usecase/getPoke.usecase.usecase";
 import { PokemonInfoDataEntitie } from "@/domain/pokemon/pokemonInfoData.entitie";
 import { useQuery } from "@tanstack/react-query";
 import type { ResponsePokemon } from "@/domain/pokemon/pokemon.dto";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { TYPE_COLORS } from "@/infra/constants/TYPE_COLORS.constantes";
 
 const getPokeService = new GetPokemonService(httpInfra());
@@ -17,17 +17,25 @@ export const usePokeCardProvider = ({ id }: { id: string }) => {
   const { data, isLoading } = useQuery<ResponsePokemon | null, Error>({
     queryKey: ["pokemon", id],
     queryFn: ({ signal }) => getPokeUseCase.execute({ id, signal }),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 20 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 
+  const previousDataRef = useRef<ResponsePokemon | null>(null);
+
+  if (!isLoading && data) {
+    previousDataRef.current = data;
+  }
+
+  const dataPokemon = isLoading ? previousDataRef.current : data;
+
   const bgCardPoke = useMemo(() => {
-    if (!data?.types) return "";
+    if (!dataPokemon?.types) return "";
 
-    const from = TYPE_COLORS[data?.types[0]?.type] ?? "#ffffff";
-    const to = TYPE_COLORS[data?.types[1]?.type] ?? from;
+    const from = TYPE_COLORS[dataPokemon?.types[0]?.type] ?? "#ffffff";
+    const to = TYPE_COLORS[dataPokemon?.types[1]?.type] ?? from;
     return `linear-gradient(to bottom right, ${from}d9, ${to}a6)`;
-  }, [data?.types]);
+  }, [dataPokemon?.types]);
 
-  return { isLoading, data, bgCardPoke };
+  return { isLoading, data: dataPokemon, bgCardPoke };
 };

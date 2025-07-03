@@ -1,5 +1,5 @@
 import type { Pokemon, ResponsePokemon } from "@/domain/pokemon/pokemon.dto";
-import { createContext, useContext } from "react";
+import { createContext, memo, useContext, useMemo } from "react";
 import { usePokeCardProvider } from "./hook/usePokeCardProvider.hook";
 import { PokeCardSkeleton } from "../fragments/pokeCardSkeleton.component";
 
@@ -14,14 +14,21 @@ type PokeCardProviderProps = {
   children: React.ReactNode;
 } & Pokemon;
 
-const PokeCardProvider = ({ children, id }: PokeCardProviderProps) => {
+const PokeCardProvider = memo(({ children, id }: PokeCardProviderProps) => {
   const { isLoading, data, bgCardPoke } = usePokeCardProvider({ id });
 
-  const urlImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`;
+  const urlImage = useMemo(
+    () =>
+      `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`,
+    [id]
+  );
+
+  const dataToTransfer = useMemo(
+    () => data ?? ({} as PokeCardContextProps),
+    [data]
+  );
 
   if (isLoading) return <PokeCardSkeleton urlImage={urlImage} />;
-
-  const dataToTransfer = data ?? ({} as PokeCardContextProps);
 
   return (
     <PokeCardContext.Provider
@@ -30,14 +37,12 @@ const PokeCardProvider = ({ children, id }: PokeCardProviderProps) => {
       {children}
     </PokeCardContext.Provider>
   );
-};
+});
 
 function usePokeCard() {
   const context = useContext(PokeCardContext);
   if (!context) {
-    throw new Error(
-      "usePokeCard must be used within an PokeCardProvider."
-    );
+    throw new Error("usePokeCard must be used within an PokeCardProvider.");
   }
   return context;
 }

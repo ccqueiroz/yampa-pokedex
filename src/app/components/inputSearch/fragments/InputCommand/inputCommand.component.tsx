@@ -37,6 +37,21 @@ export const InputCommand = observer(() => {
     [clearSuggestions, debounce, setSelectedSuggestion, setSuggestions]
   );
 
+  const handleCloseSuggestions = useCallback(
+    () => setOpenSuggestions(false),
+    [setOpenSuggestions]
+  );
+
+  const handleOpenSuggestions = useCallback(
+    () => setOpenSuggestions(true),
+    [setOpenSuggestions]
+  );
+
+  const handleGetSuggestions = useCallback(() => {
+    getBySuggestedPokemons(selectedSuggestion);
+    openAccordion(null);
+  }, [getBySuggestedPokemons, openAccordion, selectedSuggestion]);
+
   return (
     <div className="w-full flex items-center rounded-md border border-border bg-background px-2">
       <Search className="h-4 w-4 text-secondary mb-[2px]" aria-hidden="true" />
@@ -52,8 +67,8 @@ export const InputCommand = observer(() => {
           "md:text-sm"
         )}
         onValueChange={handleOnChange}
-        onBlur={() => setOpenSuggestions(false)}
-        onFocus={() => setOpenSuggestions(true)}
+        onBlur={handleCloseSuggestions}
+        onFocus={handleOpenSuggestions}
       />
       <Button
         name="btn-search-pokemon"
@@ -61,10 +76,7 @@ export const InputCommand = observer(() => {
         size="icon"
         className="h-6 w-6 text-secondary hover:bg-transparent"
         aria-label={translation("inputs.placeholder")}
-        onClick={() => {
-          getBySuggestedPokemons(selectedSuggestion);
-          openAccordion(null);
-        }}
+        onClick={handleGetSuggestions}
         disabled={selectedSuggestion.length < 3}
       >
         <SendHorizontal className="h-5 w-5" aria-hidden="true" />

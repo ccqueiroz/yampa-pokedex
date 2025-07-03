@@ -15,7 +15,7 @@ export const useFetchPokeList = () => {
   const { fetchNextPage, isFetching, hasNextPage, hasPreviousPage } =
     useInfiniteQuery({
       queryKey: ["pokemons"],
-      initialPageParam: 1,
+      initialPageParam: 0,
       queryFn: async ({ pageParam = 1, signal }) => {
         const pokemons = await getPokeListUseCase.execute({
           limit: 1400,
