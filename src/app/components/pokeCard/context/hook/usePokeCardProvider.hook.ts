@@ -17,7 +17,7 @@ export const usePokeCardProvider = ({ id }: { id: string }) => {
   const { data, isLoading } = useQuery<ResponsePokemon | null, Error>({
     queryKey: ["pokemon", id],
     queryFn: ({ signal }) => getPokeUseCase.execute({ id, signal }),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 20 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 
