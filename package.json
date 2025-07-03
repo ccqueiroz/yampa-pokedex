@@ -1,8 +1,10 @@
 {
   "name": "yampa-pokedex",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Descubra todos os Pokémon na Yampa Pokédex! Encontre facilmente pelo nome com busca inteligente e autocomplete. Visualize os cards em estilo tecnológico inspirado em anime, com rolagem infinita e ordenação alfabética. Uma experiência completa e imersiva para fãs de todas as gerações.",
   "type": "module",
+  "author": {"name": "Caio Queiroz", "email": "caio.cezar.dequeiroz@gmail.com", "url": "https://github.com/ccqueiroz"},
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
