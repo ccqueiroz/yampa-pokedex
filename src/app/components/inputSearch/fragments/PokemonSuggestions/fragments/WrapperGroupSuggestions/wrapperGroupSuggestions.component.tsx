@@ -27,6 +27,7 @@ export const WrapperGroupSuggestions = ({
                   src={pokedexSvg}
                   className="w-12 h-8"
                   alt={translation("accessibility.pokedex")}
+                  loading="lazy"
                 />
               </picture>
             </div>
