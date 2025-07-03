@@ -56,6 +56,14 @@ src/
 
 ---
 
+## 📁 Arquivo .env
+
+Crie um arquivo .env e adicione
+
+```bash
+VITE_API_URL = https://pokeapi.co/api/v2/
+```
+
 ## 🛠️ Executando Localmente
 
 ```bash
